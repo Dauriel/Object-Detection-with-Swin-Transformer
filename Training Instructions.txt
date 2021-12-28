@@ -1,0 +1,64 @@
+######## INSTALLATION #########
+
+Clone the repo https://github.com/SwinTransformer/Swin-Transformer-Object-Detection.git
+
+For installation instructions - https://github.com/open-mmlab/mmdetection/blob/master/docs/en/get_started.md
+
+Create a folder checkpoints/ within Swin-Transformer-Object-Detection/ and download the file cascade_mask_rcnn_swin_small_patch4_window7.pth from GitHub.
+https://github.com/SwinTransformer/storage/releases/download/v1.0.2/cascade_mask_rcnn_swin_small_patch4_window7.pth
+
+
+##### TRAINING CASCADE RCNN SWIN TRANSFORMER FOR OBJECT DETECTION #######
+
+1. Create a folder, say "PROJECT_NAME" and place it within Swin-Transformer-Object-Detection/configs/ folder
+2. Under the folder Swin-Transformer-Object-Detection/configs/PROJECT_NAME/ create two sub folders train/ and test/
+	2.a. put all the training images and train annotation file (.json file) within train/
+	2.b. put all the test images and test annotation file (.json file) within test/
+3. Copy the following python files to the folder Swin-Transformer-Object-Detection/configs/PROJECT_NAME/
+	3.a. cascade_rcnn_swin_fpn.py
+	3.b. cascade_rcnn_swin_small_patch4_window7_mstrain_480-800_giou_4conv1f_adamw_3x_coco.py
+	3.c. cascade_rcnn_swin_small_patch4_window7_mstrain_480-800_giou_4conv1f_adamw_3x_PROJECT_NAME.py
+4. Make changes to 3.c. - specify the class number, class names and the path for train and test folders
+
+----------------------------------------------------------------------------------------------------------------------------------
+
+The final directory structure should look like....
+
+Swin-Transformer-Object-Detection/
+
+	checkpoints/
+		cascade_mask_rcnn_swin_small_patch4_window7.pth
+
+	configs/
+		PROJECT_NAME/
+			train/
+				training images
+				train annotation file.json
+			test/
+				test images
+				test annotation file.json
+			cascade_rcnn_swin_fpn.py
+			cascade_rcnn_swin_small_patch4_window7_mstrain_480-800_giou_4conv1f_adamw_3x_coco.py
+			cascade_rcnn_swin_small_patch4_window7_mstrain_480-800_giou_4conv1f_adamw_3x_PROJECT_NAME.py
+
+-----------------------------------------------------------------------------------------------------------------------------------
+
+5. For training python tools/train.py configs/PROJECT_NAME/cascade_rcnn_swin_small_patch4_window7_mstrain_480-800_giou_4conv1f_adamw_3x_PROJECT_NAME.py
+
+6. For multi-gpu training tools/dist_train.sh configs/PROJECT_NAME/cascade_rcnn_swin_small_patch4_window7_mstrain_480-800_giou_4conv1f_adamw_3x_PROJECT_NAME.py 4 -------->>>>> 4 means number of GPU's
+
+7. After training is completed, the newly trained models and the configs are available in the folder Swin-Transformer-Object-Detection/work_dirs/cascade_rcnn_swin_small_patch4_window7_mstrain_480-800_giou_4conv1f_adamw_3x_PROJECT_NAME/
+
+	Use cascade_rcnn_swin_small_patch4_window7_mstrain_480-800_giou_4conv1f_adamw_3x_PROJECT_NAME.py and latest.pth for inference
+
+8. For image/video inference of newly trained models refer to - https://mmdetection.readthedocs.io/en/latest/1_exist_data_model.html
+
+
+########## CONVERTING YOLO TXT FORMAT TO COCO FORMAT ###########
+
+YoloV3 folks can use the following repo to convert .txt files to .json format 
+
+https://github.com/Taeyoung96/Yolo-to-COCO-format-converter
+
+
+
