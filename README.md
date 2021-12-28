@@ -3,6 +3,6 @@ Using the SOTA Swin Transformer in Cascade R-CNN configuration for object detect
   
 Paper - https://arxiv.org/abs/2103.14030  
   
-This repo is modifies Cascade Mask-RCNN for detection only without segmentation  
+This repo modifies Cascade Mask-RCNN to Cascade RCNN -  for detection only without segmentation  
   
 Refer to Training Instructions.txt
